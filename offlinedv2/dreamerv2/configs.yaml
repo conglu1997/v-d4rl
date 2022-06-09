@@ -1,0 +1,176 @@
+defaults:
+
+  # Train Script
+  logdir: /dev/null
+  seed: 0
+  task: dmc_walker_walk
+  envs: 1
+  envs_parallel: none
+  render_size: [64, 64]
+  dmc_camera: -1
+  atari_grayscale: True
+  time_limit: 0
+  action_repeat: 1
+  # steps: 1e7
+  steps: 2e5
+  log_every: 1e4
+  eval_every: 1e5
+  eval_eps: 1
+  prefill: 10000
+  pretrain: 1
+  train_every: 5
+  train_steps: 1
+  expl_until: 0
+  replay: {capacity: 2e6, ongoing: False, minlen: 50, maxlen: 50, prioritize_ends: True}
+  dataset: {batch: 16, length: 50}
+  log_keys_video: ['image']
+  log_keys_sum: '^$'
+  log_keys_mean: '^$'
+  log_keys_max: '^$'
+  precision: 16
+  jit: True
+
+  offline_dir: [none]
+  offline_model_train_steps: 25001
+  offline_model_loaddir: none
+  offline_lmbd: 5.0
+  offline_penalty_type: none
+  offline_model_save_every: 5000
+  offline_split_val: False
+  offline_tune_lmbd: False
+  offline_lmbd_cons: 1.5
+  offline_model_dataset: {batch: 64, length: 50}
+  offline_train_dataset: {batch: 64, length: 50}
+
+  # Agent
+  clip_rewards: tanh
+  expl_behavior: greedy
+  expl_noise: 0.0
+  eval_noise: 0.0
+  eval_state_mean: False
+
+  # World Model
+  grad_heads: [decoder, reward, discount]
+  pred_discount: True
+  rssm: {ensemble: 7, hidden: 1024, deter: 1024, stoch: 32, discrete: 32, act: elu, norm: none, std_act: sigmoid2, min_std: 0.1}
+  encoder: {mlp_keys: '.*', cnn_keys: '.*', act: elu, norm: none, cnn_depth: 48, cnn_kernels: [4, 4, 4, 4], mlp_layers: [400, 400, 400, 400]}
+  decoder: {mlp_keys: '.*', cnn_keys: '.*', act: elu, norm: none, cnn_depth: 48, cnn_kernels: [5, 5, 6, 6], mlp_layers: [400, 400, 400, 400]}
+  reward_head: {layers: 4, units: 400, act: elu, norm: none, dist: mse}
+  discount_head: {layers: 4, units: 400, act: elu, norm: none, dist: binary}
+  loss_scales: {kl: 1.0, reward: 1.0, discount: 1.0, proprio: 1.0}
+  kl: {free: 0.0, forward: False, balance: 0.8, free_avg: True}
+  model_opt: {opt: adam, lr: 1e-4, eps: 1e-5, clip: 100, wd: 1e-6}
+
+  # Actor Critic
+  actor: {layers: 4, units: 400, act: elu, norm: none, dist: auto, min_std: 0.1}
+  critic: {layers: 4, units: 400, act: elu, norm: none, dist: mse}
+  actor_opt: {opt: adam, lr: 8e-5, eps: 1e-5, clip: 100, wd: 1e-6}
+  critic_opt: {opt: adam, lr: 2e-4, eps: 1e-5, clip: 100, wd: 1e-6}
+  discount: 0.99
+  discount_lambda: 0.95
+  imag_horizon: 5
+  actor_grad: auto
+  actor_grad_mix: 0.1
+  actor_ent: 2e-3
+  slow_target: True
+  slow_target_update: 100
+  slow_target_fraction: 1
+  slow_baseline: True
+  reward_norm: {momentum: 1.0, scale: 1.0, eps: 1e-8}
+
+  # Exploration
+  expl_intr_scale: 1.0
+  expl_extr_scale: 0.0
+  expl_opt: {opt: adam, lr: 3e-4, eps: 1e-5, clip: 100, wd: 1e-6}
+  expl_head: {layers: 4, units: 400, act: elu, norm: none, dist: mse}
+  expl_reward_norm: {momentum: 1.0, scale: 1.0, eps: 1e-8}
+  disag_target: stoch
+  disag_log: False
+  disag_models: 10
+  disag_offset: 1
+  disag_action_cond: True
+  expl_model_loss: kl
+
+atari:
+
+  task: atari_pong
+  encoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  decoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  time_limit: 27000
+  action_repeat: 4
+  steps: 5e7
+  eval_every: 2.5e5
+  log_every: 1e4
+  prefill: 50000
+  train_every: 16
+  clip_rewards: tanh
+  rssm: {hidden: 600, deter: 600}
+  model_opt.lr: 2e-4
+  actor_opt.lr: 4e-5
+  critic_opt.lr: 1e-4
+  actor_ent: 1e-3
+  discount: 0.999
+  loss_scales.kl: 0.1
+  loss_scales.discount: 5.0
+
+crafter:
+
+  task: crafter_reward
+  encoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  decoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  log_keys_max: '^log_achievement_.*'
+  log_keys_sum: '^log_reward$'
+  discount: 0.999
+  .*\.norm: layer
+
+dmc_vision:
+
+  task: dmc_walker_walk
+  encoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  decoder: {mlp_keys: '$^', cnn_keys: 'image'}
+  action_repeat: 2
+  eval_every: 1e4
+  prefill: 1000
+  pretrain: 100
+  clip_rewards: identity
+  pred_discount: False
+  replay.prioritize_ends: False
+  grad_heads: [decoder, reward]
+  rssm: {hidden: 200, deter: 200}
+  model_opt.lr: 3e-4
+  actor_opt.lr: 8e-5
+  critic_opt.lr: 8e-5
+  actor_ent: 1e-4
+  kl.free: 1.0
+
+dmc_proprio:
+
+  task: dmc_walker_walk
+  encoder: {mlp_keys: '.*', cnn_keys: '$^'}
+  decoder: {mlp_keys: '.*', cnn_keys: '$^'}
+  action_repeat: 2
+  eval_every: 1e4
+  prefill: 1000
+  pretrain: 100
+  clip_rewards: identity
+  pred_discount: False
+  replay.prioritize_ends: False
+  grad_heads: [decoder, reward]
+  rssm: {hidden: 200, deter: 200}
+  model_opt.lr: 3e-4
+  actor_opt.lr: 8e-5
+  critic_opt.lr: 8e-5
+  actor_ent: 1e-4
+  kl.free: 1.0
+
+debug:
+
+  jit: False
+  time_limit: 100
+  eval_every: 300
+  log_every: 300
+  prefill: 100
+  pretrain: 1
+  train_steps: 1
+  replay: {minlen: 10, maxlen: 30}
+  dataset: {batch: 10, length: 10}

@@ -1,0 +1,74 @@
+# FROM MAIN DIR: docker build -t offline-drqv2 -f dockerfiles/Dockerfile-drqv2 .
+
+FROM nvidia/cuda:11.3.0-cudnn8-devel-ubuntu18.04
+MAINTAINER Anonymous
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    vim wget unzip \
+    libosmesa6-dev libgl1-mesa-glx libgl1-mesa-dev patchelf libglfw3 build-essential
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+         tzdata \    
+         cmake \
+         git \
+         curl \
+         ca-certificates \
+         libjpeg-dev \
+         libpng-dev \
+         libglib2.0-0
+
+# ZOO PACKAGES
+RUN apt-get -y update \
+    && apt-get -y install \
+    ffmpeg \
+    freeglut3-dev \
+    swig \
+    xvfb \
+    libxrandr2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# ATARI PACKAGES
+RUN apt-get -y update \
+    && apt-get -y install \
+    tmux \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    unrar \
+    zlib1g \
+    zlib1g-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# mujoco
+RUN mkdir -p /.mujoco \
+    && wget https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz -O mujoco.tar.gz \
+    && tar -xf mujoco.tar.gz -C /.mujoco \
+    && rm mujoco.tar.gz
+ENV MUJOCO_PY_MUJOCO_PATH /.mujoco/mujoco210
+ENV LD_LIBRARY_PATH /.mujoco/mujoco210/bin:${LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+ENV MJLIB_PATH /.mujoco/mujoco210/bin/libmujoco210.so
+
+RUN useradd -u <<USER_ID>> --create-home user
+USER user
+WORKDIR /home/user
+
+RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p miniconda3 && \
+    rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH /home/user/miniconda3/bin:$PATH
+
+RUN pip install --upgrade pip
+RUN pip install mujoco_py seaborn
+RUN conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+RUN pip install absl-py 
+RUN pip install dm_control
+RUN pip install tb-nightly termcolor
+RUN pip install imageio imageio-ffmpeg hydra-core hydra-submitit-launcher pandas
+RUN pip install ipdb yapf sklearn matplotlib opencv-python
+
+WORKDIR /vd4rl

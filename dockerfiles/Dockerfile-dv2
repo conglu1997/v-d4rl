@@ -1,0 +1,58 @@
+# FROM MAIN DIR: docker build -t offline-dv2 -f dockerfiles/Dockerfile-dv2 .
+
+FROM tensorflow/tensorflow:2.6.0-gpu
+MAINTAINER Anonymous
+
+# System packages.
+RUN apt-get update && apt-get install -y \
+  ffmpeg \
+  libgl1-mesa-dev \
+  libosmesa6-dev \
+  python3-pip \
+  unrar \
+  wget \
+  && apt-get clean
+
+RUN apt-get update && apt-get install -y \
+  git \
+  && apt-get clean
+
+RUN useradd -u <<USER_ID>> --create-home user
+USER user
+WORKDIR /home/user
+
+RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p miniconda3 && \
+    rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH /home/user/miniconda3/bin:$PATH
+
+# MuJoCo
+ENV MUJOCO_GL egl
+ENV MUJOCO_PY_MUJOCO_PATH /home/user/.mujoco/mujoco210
+RUN mkdir -p .mujoco \
+    && wget https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz -O mujoco.tar.gz \
+    && tar -xf mujoco.tar.gz -C .mujoco \
+    && rm mujoco.tar.gz
+ENV LD_LIBRARY_PATH /home/user/.mujoco/mujoco210/bin:${LD_LIBRARY_PATH}
+
+# Python packages.
+RUN pip3 install --no-cache-dir 'gym[atari]'
+RUN pip3 install --no-cache-dir atari_py
+RUN pip3 install --no-cache-dir crafter
+RUN pip3 install --no-cache-dir dm_control
+RUN pip3 install --no-cache-dir ruamel.yaml
+RUN pip3 install --no-cache-dir tensorflow==2.6.0 tensorflow_probability==0.14.1 tensorflow-estimator==2.6.0 tensorboard==2.6.0 keras==2.6.0
+RUN pip3 install --no-cache-dir gym-minigrid sklearn
+
+# Atari ROMS.
+RUN wget -L -nv http://www.atarimania.com/roms/Roms.rar && \
+  unrar x Roms.rar && \
+  unzip ROMS.zip && \
+  python3 -m atari_py.import_roms ROMS && \
+  rm -rf Roms.rar ROMS.zip ROMS
+
+RUN pip3 install -U 'mujoco-py<2.2,>=2.1'
+RUN wget https://www.roboti.us/file/mjkey.txt -O /home/user/.mujoco/mjkey.txt
+RUN conda install patchelf
+
+WORKDIR /vd4rl

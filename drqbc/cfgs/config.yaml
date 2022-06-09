@@ -1,0 +1,63 @@
+defaults:
+  - _self_
+  - task@_global_: offline_dmc
+  - algo@_global_: drqv2
+  - override hydra/launcher: submitit_local
+
+# task settings
+frame_stack: 3
+action_repeat: 2
+discount: 0.99
+distracting_mode: null
+# train settings
+num_seed_frames: 4000
+# eval
+eval_every_frames: 10000
+num_eval_episodes: 10
+eval_on_distracting: False
+eval_on_multitask: False
+eval_save_vid_every_step: 100000
+# snapshot
+save_snapshot: False
+# replay buffer
+replay_buffer_size: 1_000_000
+replay_buffer_num_workers: 1
+nstep: 3
+batch_size: 256
+# misc
+seed: 1
+device: cuda
+save_video: True
+save_train_video: False
+use_tb: True
+# experiment
+experiment: exp
+# agent
+lr: 1e-4
+feature_dim: 50
+# offline
+offline: False
+bc_weight: 2.5
+use_bc: True
+# cql
+cql_importance_sample: False
+temp: 1.0
+min_q_weight: 1.0
+num_random: 10
+with_lagrange: False
+lagrange_thresh: 0.0
+
+hydra:
+  run:
+     dir: drqv2_data/${experiment}/${task_name}/${now:%Y.%m.%d}/${now:%H%M%S}`
+  sweep:
+    dir: ./exp/${now:%Y.%m.%d}/${now:%H%M}_${agent_cfg.experiment}
+    subdir: ${hydra.job.num}
+  launcher:
+    timeout_min: 4300
+    cpus_per_task: 10
+    gpus_per_node: 1
+    tasks_per_node: 1
+    mem_gb: 160
+    nodes: 1
+    submitit_folder: ./exp/${now:%Y.%m.%d}/${now:%H%M%S}_${agent_cfg.experiment}/.slurm

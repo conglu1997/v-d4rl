@@ -1,0 +1,10 @@
+defaults:
+  - drqv2
+  - _self_
+
+# experiment
+experiment: noaug_drqv2
+
+agent:
+  augmentation:
+    _target_: drqv2.NoShiftAug
