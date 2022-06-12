@@ -40,22 +40,30 @@ vd4rl_data
 Separate DrQ-v2 and DreamerV2 based dockerfiles are provided in `dockerfiles`, replace `<<USER_ID>>` in the files with your own user ID from the command `id -u`.
 
 ### V-D4RL Main Evaluation
-Example run commands are given below: 
+Example run commands are given below, given an environment type and dataset identifier:
 
 ```
 ENVNAME=walker_walk # choice in ['walker_walk', 'cheetah_run', 'humanoid_walk']
 TYPE=random # choice in ['random', 'medium_replay', 'medium', 'medium_expert', 'expert']
+```
 
-# Offline DV2 
+#### Offline DV2 
+```
 python offlinedv2/train_offline.py --configs dmc_vision --task dmc_${ENVNAME} --offline_dir vd4rl_data/main/${ENV_NAME}/${TYPE}/64px --offline_penalty_type meandis --offline_lmbd_cons 10 --seed 0
+```
 
-# DrQ+BC
+#### DrQ+BC
+```
 python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px nstep=3 seed=0
+```
 
-# DrQ+CQL
+#### DrQ+CQL
+```
 python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px algo=cql cql_importance_sample=false min_q_weight=10 seed=0
+```
 
-# BC
+#### BC
+```
 python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px algo=bc seed=0
 ```
 
