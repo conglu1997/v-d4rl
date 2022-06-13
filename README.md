@@ -9,7 +9,7 @@ V-D4RL provides pixel-based analogues of the popular D4RL benchmarking tasks, de
 **_Challenges and Opportunities in Offline Reinforcement Learning from Visual Observations_**; Cong Lu*, Philip J. Ball*, Tim G. J. Rudner, Jack Parker-Holder, Michael A. Osborne, Yee Whye Teh.
 
 <p align="center">
-  <a href="https://www.conglu.co.uk/publication/2022_visual/2022_visual_paper.pdf">View online (arXiv soon)</a>
+  <a href=https://arxiv.org/abs/2206.04779>View on arXiv</a>
 </p>
 
 ## Benchmarks
