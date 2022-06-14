@@ -242,6 +242,9 @@ class Workspace:
         load_offline_dataset_into_buffer(Path(dataset_dir), self.replay_buffer, self.cfg.frame_stack,
                                          self.cfg.replay_buffer_size)
 
+        if self.replay_buffer.index == -1:
+            raise ValueError('No offline data loaded, check directory.')
+
         # predicates
         train_until_step = utils.Until(self.cfg.num_train_frames, 1)
         eval_every_step = utils.Every(self.cfg.eval_every_frames, 1)
