@@ -37,7 +37,12 @@ vd4rl_data
 ## Baselines
 
 ### Environment Setup
-Separate DrQ-v2 and DreamerV2 based dockerfiles are provided in `dockerfiles`, replace `<<USER_ID>>` in the files with your own user ID from the command `id -u`.
+Requirements are presented in conda environment files named `conda_env.yml` within each folder. The command to create the environment is:
+```
+conda env create -f conda_env.yml
+```
+
+Alternatively, dockerfiles are located under `dockerfiles`, replace `<<USER_ID>>` in the files with your own user ID from the command `id -u`.
 
 ### V-D4RL Main Evaluation
 Example run commands are given below, given an environment type and dataset identifier:
