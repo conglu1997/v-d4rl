@@ -237,9 +237,9 @@ class Workspace:
             episode_step += 1
             self._global_step += 1
 
-    def train_offline(self, dataset_dir):
+    def train_offline(self, offline_dir):
         # Open dataset, load as memory buffer
-        load_offline_dataset_into_buffer(Path(dataset_dir), self.replay_buffer, self.cfg.frame_stack,
+        load_offline_dataset_into_buffer(Path(offline_dir), self.replay_buffer, self.cfg.frame_stack,
                                          self.cfg.replay_buffer_size)
 
         if self.replay_buffer.index == -1:
@@ -315,7 +315,7 @@ def main(cfg):
         print(f'resuming: {snapshot}')
         workspace.load_snapshot()
     if cfg.offline:
-        workspace.train_offline(cfg.dataset_dir)
+        workspace.train_offline(cfg.offline_dir)
     else:
         workspace.train()
 

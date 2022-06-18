@@ -160,8 +160,8 @@ step_type_lookup = {
 }
 
 
-def load_offline_dataset_into_buffer(dataset_dir, replay_buffer, frame_stack, replay_buffer_size):
-    filenames = sorted(dataset_dir.glob('*.hdf5'))
+def load_offline_dataset_into_buffer(offline_dir, replay_buffer, frame_stack, replay_buffer_size):
+    filenames = sorted(offline_dir.glob('*.hdf5'))
     num_steps = 0
     for filename in filenames:
         try:
