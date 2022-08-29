@@ -79,6 +79,7 @@ To run the distracted and multitask experiments, it suffices to change the offli
 We follow the image sizes and dataset format of each algorithm's native codebase.
 The means that Offline DV2 uses `*.npz` files with 64px images to store the offline data, whereas DrQ+BC uses `*.hdf5` with 84px images.
 The data collection procedure is detailed in Appendix B of our paper, and we provide conversion scripts in `conversion_scripts`.
+For the original SAC policies to generate the data see [here](https://github.com/philipjball/SAC_PyTorch/blob/dmc_branch/train_agent.py). See [here](https://github.com/philipjball/SAC_PyTorch/blob/dmc_branch/gather_offline_data.py) for distracted/multitask variants. We used `seed=0` for all data generation.
 
 ## Acknowledgements
 V-D4RL builds upon many works and open-source codebases in both offline reinforcement learning and online pixel-based continuous control. We would like to particularly thank the authors of:
