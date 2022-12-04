@@ -13,7 +13,7 @@ V-D4RL provides pixel-based analogues of the popular D4RL benchmarking tasks, de
 </p>
 
 ## Benchmarks
-The V-D4RL datasets can be found [here](https://drive.google.com/drive/folders/15HpW6nlJexJP5A4ygGk-1plqt9XdcWGI?usp=sharing). **These must be downloaded before running the code.** Assuming the data is stored under `vd4rl_data`, the file structure is:
+The V-D4RL datasets can be found on [Hugging Face](https://huggingface.co/datasets/conglu/vd4rl) or on [Google Drive](https://drive.google.com/drive/folders/15HpW6nlJexJP5A4ygGk-1plqt9XdcWGI?usp=sharing). **These must be downloaded before running the code.** Assuming the data is stored under `vd4rl_data`, the file structure is:
 
 ```
 vd4rl_data
