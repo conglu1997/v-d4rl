@@ -93,4 +93,4 @@ V-D4RL builds upon many works and open-source codebases in both offline reinforc
 - [LOMPO](https://github.com/rmrafailov/LOMPO)
 
 ## Contact
-Please contact [Cong Lu](mailto:cong.lu@stats.ox.ac.uk) or [Philip Ball](mailto:ball@robots.ox.ac.uk) for any queries.
+Please contact [Cong Lu](mailto:cong.lu@stats.ox.ac.uk) or [Philip Ball](mailto:ball@robots.ox.ac.uk) for any queries. We welcome any suggestions or contributions! 
