@@ -1,8 +1,10 @@
-@misc{lu2022challenges,
-      title={Challenges and Opportunities in Offline Reinforcement Learning from Visual Observations}, 
-      author={Cong Lu and Philip J. Ball and Tim G. J. Rudner and Jack Parker-Holder and Michael A. Osborne and Yee Whye Teh},
-      year={2022},
-      eprint={2206.04779},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@article{
+lu2023challenges,
+title={Challenges and Opportunities in Offline Reinforcement Learning from Visual Observations},
+author={Cong Lu and Philip J. Ball and Tim G. J. Rudner and Jack Parker-Holder and Michael A Osborne and Yee Whye Teh},
+journal={Transactions on Machine Learning Research},
+issn={2835-8856},
+year={2023},
+url={https://openreview.net/forum?id=1QqIfGZOWu},
+note={}
 }
