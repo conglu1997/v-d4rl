@@ -37,6 +37,8 @@ vd4rl_data
 │   ...
 ```
 
+A complete listing of the datasets in `main` is given in Table 5, Appendix A.
+
 ## Baselines
 
 ### Environment Setup
