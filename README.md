@@ -9,7 +9,7 @@
 
 V-D4RL provides pixel-based analogues of the popular D4RL benchmarking tasks, derived from the **`dm_control`** suite, along with natural extensions of two state-of-the-art online pixel-based continuous control algorithms, DrQ-v2 and DreamerV2, to the offline setting. For further details, please see the paper:
 
-**_Challenges and Opportunities in Offline Reinforcement Learning from Visual Observations_**; Cong Lu*, Philip J. Ball*, Tim G. J. Rudner, Jack Parker-Holder, Michael A. Osborne, Yee Whye Teh.
+**_Challenges and Opportunities in Offline Reinforcement Learning from Visual Observations_**; Cong Lu*, Philip J. Ball*, Tim G. J. Rudner, Jack Parker-Holder, Michael A. Osborne, Yee Whye Teh. Published at [TMLR, 2023](https://openreview.net/forum?id=1QqIfGZOWu).
 
 <p align="center">
   <a href=https://arxiv.org/abs/2206.04779>View on arXiv</a>
