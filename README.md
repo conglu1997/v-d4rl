@@ -59,7 +59,7 @@ TYPE=random # choice in ['random', 'medium_replay', 'medium', 'medium_expert', '
 
 #### Offline DV2 
 ```
-python offlinedv2/train_offline.py --configs dmc_vision --task dmc_${ENVNAME} --offline_dir vd4rl_data/main/${ENV_NAME}/${TYPE}/64px --offline_penalty_type meandis --offline_lmbd_cons 10 --seed 0
+python offlinedv2/train_offline.py --configs dmc_vision --task dmc_${ENVNAME} --offline_dir vd4rl_data/main/${ENV_NAME}/${TYPE}/64px --offline_penalty_type meandis --offline_lmbd 10 --seed 0
 ```
 
 #### DrQ+BC
