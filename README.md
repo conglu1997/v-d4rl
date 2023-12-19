@@ -16,7 +16,7 @@ V-D4RL provides pixel-based analogues of the popular D4RL benchmarking tasks, de
 </p>
 
 ## Benchmarks
-The V-D4RL datasets can be found on [Hugging Face](https://huggingface.co/datasets/conglu/vd4rl) or on [Google Drive](https://drive.google.com/drive/folders/15HpW6nlJexJP5A4ygGk-1plqt9XdcWGI?usp=sharing). **These must be downloaded before running the code.** Assuming the data is stored under `vd4rl_data`, the file structure is:
+The V-D4RL datasets can be found on [Hugging Face](https://huggingface.co/datasets/conglu/vd4rl) or on [Google Drive](https://drive.google.com/drive/folders/15HpW6nlJexJP5A4ygGk-1plqt9XdcWGI?usp=sharing). **These must be downloaded before running the code[^1].** Assuming the data is stored under `vd4rl_data`, the file structure is:
 
 ```
 vd4rl_data
@@ -99,3 +99,6 @@ V-D4RL builds upon many works and open-source codebases in both offline reinforc
 
 ## Contact
 Please contact [Cong Lu](mailto:cong.lu@stats.ox.ac.uk) or [Philip Ball](mailto:ball@robots.ox.ac.uk) for any queries. We welcome any suggestions or contributions! 
+
+
+[^1]: The files on Google Drive may be separated into separate zip files, use [this](https://stackoverflow.com/questions/60842075/combine-the-split-zip-files-downloading-from-google-drive) to combine.
