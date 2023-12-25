@@ -39,6 +39,8 @@ vd4rl_data
 
 A complete listing of the datasets in `main` is given in Table 5, Appendix A.
 
+**(Update, Dec 2023):** Our datasets are now compatible with [torch/rl](https://github.com/pytorch/rl/pull/1756)!
+
 ## Baselines
 
 ### Environment Setup
