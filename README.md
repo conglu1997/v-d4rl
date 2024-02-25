@@ -100,7 +100,8 @@ V-D4RL builds upon many works and open-source codebases in both offline reinforc
 - [LOMPO](https://github.com/rmrafailov/LOMPO)
 
 ## Contact
-Please contact [Cong Lu](mailto:cong.lu@stats.ox.ac.uk) or [Philip Ball](mailto:ball@robots.ox.ac.uk) for any queries. We welcome any suggestions or contributions! 
+Please contact [Cong Lu](mailto:conglu97*AT*outlook*DOT*com) or [Philip Ball](mailto:ball*AT*robots*DOT*ox*DOT*ac*DOT*uk) for any queries.
+We welcome any suggestions or contributions! 
 
 
 [^1]: The data is contained within the repository on HuggingFace, see [instructions](https://huggingface.co/docs/hub/repositories-getting-started) to clone.
