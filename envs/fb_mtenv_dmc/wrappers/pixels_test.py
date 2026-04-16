@@ -54,7 +54,7 @@ class FakeArrayObservationEnvironment(dm_env.Environment):
         pass
 
     def observation_spec(self):
-        return specs.Array(shape=(2,), dtype=np.float)
+        return specs.Array(shape=(2,), dtype=np.float64)
 
 
 class PixelsTest(parameterized.TestCase):

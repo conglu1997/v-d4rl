@@ -61,22 +61,22 @@ TYPE=random # choice in ['random', 'medium_replay', 'medium', 'medium_expert', '
 
 #### Offline DV2 
 ```
-python offlinedv2/train_offline.py --configs dmc_vision --task dmc_${ENVNAME} --offline_dir vd4rl_data/main/${ENV_NAME}/${TYPE}/64px --offline_penalty_type meandis --offline_lmbd 10 --seed 0
+python offlinedv2/train_offline.py --configs dmc_vision --task dmc_${ENVNAME} --offline_dir vd4rl_data/main/${ENVNAME}/${TYPE}/64px --offline_penalty_type meandis --offline_lmbd 10 --seed 0
 ```
 
 #### DrQ+BC
 ```
-python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px nstep=3 seed=0
+python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENVNAME}/${TYPE}/84px nstep=3 seed=0
 ```
 
 #### DrQ+CQL
 ```
-python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px algo=cql cql_importance_sample=false min_q_weight=10 seed=0
+python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENVNAME}/${TYPE}/84px algo=cql cql_importance_sample=false min_q_weight=10 seed=0
 ```
 
 #### BC
 ```
-python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENV_NAME}/${TYPE}/84px algo=bc seed=0
+python drqbc/train.py task_name=offline_${ENVNAME}_${TYPE} offline_dir=vd4rl_data/main/${ENVNAME}/${TYPE}/84px algo=bc seed=0
 ```
 
 ### Distracted and Multitask Experiments
@@ -84,7 +84,7 @@ To run the distracted and multitask experiments, it suffices to change the offli
 
 ## Note on data collection and format
 We follow the image sizes and dataset format of each algorithm's native codebase.
-The means that Offline DV2 uses `*.npz` files with 64px images to store the offline data, whereas DrQ+BC uses `*.hdf5` with 84px images.
+This means that Offline DV2 uses `*.npz` files with 64px images to store the offline data, whereas DrQ+BC uses `*.hdf5` with 84px images.
 
 The data collection procedure is detailed in Appendix B of our paper, and we provide conversion scripts in `conversion_scripts`.
 For the original SAC policies to generate the data see [here](https://github.com/philipjball/SAC_PyTorch/blob/dmc_branch/train_agent.py).
