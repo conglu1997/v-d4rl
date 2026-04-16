@@ -78,7 +78,13 @@ def main():
         prec.set_policy(prec.Policy('mixed_float16'))
 
     print('Offline Datadir', config.offline_dir)
-    train_replay = common.OfflineReplay(list(config.offline_dir), split_val=config.offline_split_val, **config.replay)
+    if isinstance(config.offline_dir, (str, pathlib.Path)):
+        offline_dirs = [config.offline_dir]
+    else:
+        offline_dirs = list(config.offline_dir)
+    train_replay = common.OfflineReplay(
+        offline_dirs, split_val=config.offline_split_val, **config.replay
+    )
     eval_replay = common.Replay(
         logdir / 'eval_episodes',
         capacity=config.replay.capacity // 10,

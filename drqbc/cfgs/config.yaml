@@ -49,7 +49,7 @@ lagrange_thresh: 0.0
 
 hydra:
   run:
-     dir: drqv2_data/${experiment}/${task_name}/${now:%Y.%m.%d}/${now:%H%M%S}`
+     dir: drqv2_data/${experiment}/${task_name}/${now:%Y.%m.%d}/${now:%H%M%S}
   sweep:
     dir: ./exp/${now:%Y.%m.%d}/${now:%H%M}_${agent_cfg.experiment}
     subdir: ${hydra.job.num}
